@@ -13,6 +13,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript">
+  	$(document).ready(function () {
+  		// 실패할경우 
+		if(${!empty msgType}) {
+			$("#messageType").attr("class", "modal-content panel-warning");
+			$("#myMessage").modal("show");
+		}
+	});
+  	
   	function registerCheck() {
 		var memID=$("#memID").val();
   		$.ajax({
@@ -50,6 +58,15 @@
 			$("#memPassword").val(memPassword1);
 		}
 	}
+  	
+  	function goInsert() {
+		var memAge = $("#memAge").val();
+		if(memAge == null || memAge=="" || memAge == 0) {
+			alert("나이를 입력하세요");
+			return false;
+		}
+		document.frm.submit();	// 전송
+	}
   </script>
 </head>
 <body>
@@ -61,7 +78,7 @@
     <div class="panel-heading">회원가입</div>
     <div class="panel-body">
     <!-- 수정 -->
-    	<form action="${contextPath}/memRegister.do" method="post">
+    	<form name="frm" action="${contextPath}/memRegister.do" method="post">
     		<input type="hidden" id="memPassword" name="memPassword" value="">
     		<table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
     			<tr>
@@ -80,11 +97,11 @@
     			</tr>
     			<tr>
     				<td style="width: 110px; vertical-align: middle;">사용자 이름</td>
-    				<td colspan="2"><input id="memName" name="memName" class="form-control" type="text" maxlength="20" placeholder="이름을 확인하세요." /></td>
+    				<td colspan="2"><input id="memName" name="memName" class="form-control" type="text" maxlength="20" placeholder="이름을 입력하세요." /></td>
     			</tr>
     			<tr>
     				<td style="width: 110px; vertical-align: middle;">나이</td>
-    				<td colspan="2"><input id="memAge" name="memAge" class="form-control" type="text" maxlength="20" placeholder="나이를 확인하세요." /></td>
+    				<td colspan="2"><input id="memAge" name="memAge" class="form-control" type="number" maxlength="20" placeholder="나이를 입력하세요."  /></td>
     			</tr>
     			<tr>
     				<td style="width: 110px; vertical-align: middle;">성별</td>
@@ -107,7 +124,7 @@
     			</tr>
     			<tr>
     				<td colspan="3" style="text-align: left;">
-    					<span id="passMessage" style="color: red;"></span><input type="submit" class="btn btn-primary btn-sm pull-right" value="등록" />
+    					<span id="passMessage" style="color: red;"></span><input type="button" class="btn btn-primary btn-sm pull-right" value="등록" onclick="goInsert()" />
     				</td>
     			</tr>
     		</table>
@@ -116,7 +133,6 @@
     <!-- 다이얼로그창(모달) -->
 	<div id="myModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
-	
 	    <!-- Modal content-->
 	    <div id="checkType" class="modal-content panel-info">
 	      <div class="modal-header panel-heading">
@@ -130,7 +146,24 @@
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	      </div>
 	    </div>
-	
+	  </div>
+	</div>
+	<!-- 실패 메시지를 출력(Modal) -->
+	<div id="myMessage" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div id="messageType" class="modal-content panel-info">
+	      <div class="modal-header panel-heading">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">${msgType }</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>${msg }</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
 	  </div>
 	</div>
     <div class="panel-footer">스프1탄_인프런(김민석)</div>

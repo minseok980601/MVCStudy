@@ -32,3 +32,7 @@ create table mem_tbl(
 	memProfile varchar(50),
 	primary key(memIdx)
 );
+
+select *
+from mem_tbl
+;

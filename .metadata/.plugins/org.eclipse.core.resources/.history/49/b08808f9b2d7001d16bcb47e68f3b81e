@@ -196,7 +196,7 @@ public class MemberController {
 		
 		// 데이터베이스 테이블에 회원이미지를 업데이트
 		// hidden 으로 있는 ID를 가져옴
-		String memID = multi.getParameter("memID");
+		String memID = request.getParameter("memID");
 		String newProfile = "";
 		// 업로드한 파일의 이름을 가져옴
 		File file = multi.getFile("memProfile");
@@ -236,6 +236,6 @@ public class MemberController {
 		session.setAttribute("mvo", m);
 		rttr.addFlashAttribute("msgType", "성공 메시지");
 		rttr.addFlashAttribute("msg", "이미지 변경이 성공했습니다.");
-		return "redirect:/";
+		return "";
 	}
 }

@@ -176,7 +176,7 @@ public class MemberController {
 	
 	// 회원사진 이미지 업로드(upload, DB저장)
 	@RequestMapping("/memImageUpdate.do")
-	public String memImageUpdate(HttpServletRequest request, RedirectAttributes rttr, HttpSession session) {
+	public String memImageUpdate(HttpServletRequest request, RedirectAttributes rttr) {
 		// 파일 업로드 API(cos.jar, 3가지)
 		MultipartRequest multi = null;
 		int fileMaxSize = 10*1024*1024; // 10MB
@@ -196,7 +196,7 @@ public class MemberController {
 		
 		// 데이터베이스 테이블에 회원이미지를 업데이트
 		// hidden 으로 있는 ID를 가져옴
-		String memID = multi.getParameter("memID");
+		String memID = request.getParameter("memID");
 		String newProfile = "";
 		// 업로드한 파일의 이름을 가져옴
 		File file = multi.getFile("memProfile");
@@ -215,8 +215,6 @@ public class MemberController {
 					// 존재한다면 삭제함
 					oldFile.delete();
 				}
-				// 새로운 파일 이름을 가져옴
-				newProfile = file.getName();
 			} else {	// 이미지 파일이 아니면
 				if (file.exists()) {
 					file.delete();	// 삭제
@@ -227,15 +225,7 @@ public class MemberController {
 			}
 		}
 		// 새로운 이미지를 DB에 업데이트
-		Member mvo = new Member();
-		mvo.setMemID(memID);
-		mvo.setMemProfile(newProfile);
-		memberMapper.memProfileUpdate(mvo);		// 이미지 업데이트 성공
-		Member m = memberMapper.getMember(memID);	// 업데이트한 멤버를 가져옴
-		// 세션을 새롭게 생성한다.
-		session.setAttribute("mvo", m);
-		rttr.addFlashAttribute("msgType", "성공 메시지");
-		rttr.addFlashAttribute("msg", "이미지 변경이 성공했습니다.");
-		return "redirect:/";
+		
+		return "";
 	}
 }

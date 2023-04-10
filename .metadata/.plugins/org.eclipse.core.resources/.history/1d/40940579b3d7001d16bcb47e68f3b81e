@@ -196,7 +196,7 @@ public class MemberController {
 		
 		// 데이터베이스 테이블에 회원이미지를 업데이트
 		// hidden 으로 있는 ID를 가져옴
-		String memID = multi.getParameter("memID");
+		String memID = request.getParameter("memID");
 		String newProfile = "";
 		// 업로드한 파일의 이름을 가져옴
 		File file = multi.getFile("memProfile");

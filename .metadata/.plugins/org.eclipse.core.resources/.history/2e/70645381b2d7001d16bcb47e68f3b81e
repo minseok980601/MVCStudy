@@ -33,7 +33,7 @@
 	</select>
 	
 	<update id="memProfileUpdate" parameterType="kr.board.entity.Member">
-		update mem_tbl
+		update memProfile
 		set memProfile = #{memProfile}
 		where memID = #{memID}
 	</update>

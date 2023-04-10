@@ -1,5 +1,7 @@
 package kr.board.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -191,6 +193,38 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", "파일의 크기는 10MB를 넘을 수 없습니다.");
 			return "redirect:/memImageForm.do";
 		}
+		
+		// 데이터베이스 테이블에 회원이미지를 업데이트
+		// hidden 으로 있는 ID를 가져옴
+		String memID = request.getParameter("memID");
+		String newProfile = "";
+		// 업로드한 파일의 이름을 가져옴
+		File file = multi.getFile("memProfile");
+		
+		if (file != null) {	// 업로드가 된 상태(.png, .jpg, .gif)
+			// 이미지 파일 여부를 체크 -> 이미지 파일이 아니면 삭제(ex 1.png일경우 substring(부분을 가져와라) .을 가져와라 +1 = .뒤에 있는 확장자를 가져옴
+			String ext = file.getName().substring(file.getName().lastIndexOf(".")+1);
+			ext = ext.toUpperCase();	// toUpperCase() 대문자로 변경 PNG, GIF, JPG 일수도 있음.
+			if (ext.equals("PNG") || ext.equals("GIF") || ext.equals("JPG")) {
+				// 새로업로드된 이미지(new -> 1.PNG), 현재 DB에 있는 이미지(old -> 4.PNG)
+				String oldProfile = memberMapper.getMember(memID).getMemProfile();
+				// 사용자가 바꾸기전 사진 파일이 있는지 경로를 통해 확인함
+				File oldFile = new File(savePath + "/" + oldProfile);
+				// exists - 존재한다면
+				if (oldFile.exists()) {
+					// 존재한다면 삭제함
+					oldFile.delete();
+				}
+			} else {	// 이미지 파일이 아니면
+				if (file.exists()) {
+					file.delete();	// 삭제
+				}
+				rttr.addFlashAttribute("msgType", "실패 메시지");
+				rttr.addFlashAttribute("msg", "이미지 파일만 업로드 가능합니다.");
+				return "redirect:/memImageForm.do";
+			}
+		}
+		// 새로운 이미지를 DB에 업데이트
 		
 		return "";
 	}

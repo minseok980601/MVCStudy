@@ -37,3 +37,15 @@
 0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:00:59 +0900] "POST /controller/memLogin.do HTTP/1.1" 302 -
 0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:00:59 +0900] "GET /controller/ HTTP/1.1" 200 3814
 0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:00:59 +0900] "GET /controller/resources/images/aimyon.PNG HTTP/1.1" 404 721
+127.0.0.1 - - [09/Apr/2023:23:01:34 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:34 +0900] "GET /controller/ HTTP/1.1" 200 3486
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:36 +0900] "GET /controller/memLoginForm.do HTTP/1.1" 200 3720
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:38 +0900] "POST /controller/memLogin.do HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:38 +0900] "GET /controller/ HTTP/1.1" 200 3814
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:38 +0900] "GET /controller/resources/images/aimyon.PNG HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:43 +0900] "GET /controller/resources/images/aimyon.PNG HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:56 +0900] "GET /controller/ HTTP/1.1" 200 3767
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:56 +0900] "GET /controller/resources/images/aimyon.png HTTP/1.1" 200 6972
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:56 +0900] "GET /controller/resources/images/main.png HTTP/1.1" 200 91155
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:01:56 +0900] "GET /favicon.ico HTTP/1.1" 404 761
+0:0:0:0:0:0:0:1 - - [09/Apr/2023:23:02:15 +0900] "GET /controller/memImageForm.do HTTP/1.1" 200 3855

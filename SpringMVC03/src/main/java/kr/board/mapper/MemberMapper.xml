@@ -26,4 +26,9 @@
 		where memID = #{memID}
 	</update>
 
+	<select id="getMember" resultType="kr.board.entity.Member">
+		select *
+		from mem_tbl
+		where memID = #{memID}
+	</select>
 </mapper>

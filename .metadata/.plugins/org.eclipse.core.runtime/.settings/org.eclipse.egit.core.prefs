@@ -1,5 +1,5 @@
-GitRepositoriesView.GitDirectories=C\:\\eGovFrame-4.0.0\\workspace.edu\\SpringMVC2\\.git;C\:\\Users\\minsu\\git\\springpro\\.git;
-GitRepositoriesView.GitDirectories.relative=SpringMVC2\\.git;C\:\\Users\\minsu\\git\\springpro\\.git;
+GitRepositoriesView.GitDirectories=C\:\\eGovFrame-4.0.0\\workspace.edu\\.git;C\:\\eGovFrame-4.0.0\\workspace.edu\\SpringMVC2\\.git;C\:\\Users\\minsu\\git\\springpro\\.git;
+GitRepositoriesView.GitDirectories.relative=.git;SpringMVC2\\.git;C\:\\Users\\minsu\\git\\springpro\\.git;
 RepositorySearchDialogSearchPath=C\:\\Users\\minsu\\git
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

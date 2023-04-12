@@ -9,6 +9,8 @@ create table myboard (
 	primary key(idx)
 );
 
+drop table myboard;
+
 insert into myboard(title, content, writer)
 values('게시판 연습', '게시판 연습', '관리자');
 

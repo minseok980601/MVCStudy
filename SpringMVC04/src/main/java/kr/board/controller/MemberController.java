@@ -160,7 +160,8 @@ public class MemberController {
 				rttr.addFlashAttribute("msgType", "성공 메시지");
 				rttr.addFlashAttribute("msg", "회원정보 수정에 성공했습니다.");
 				// 회원수정이 성공하면 => 로그인처리하기
-				session.setAttribute("mvo", m);	// ${!empty m}
+				Member mvo = memberMapper.getMember(m.getMemID());
+				session.setAttribute("mvo", mvo);	// ${!empty m}
 				return "redirect:/";
 			} else {
 				rttr.addFlashAttribute("msgType", "실패 메시지");

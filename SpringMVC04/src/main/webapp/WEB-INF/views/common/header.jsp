@@ -33,10 +33,10 @@
 	            <li><a href="${contextPath}/memImageForm.do"><span class="glyphicon glyphicon-picture"></span>사진등록</a></li>
 	            <li><a href="${contextPath}/memLogout.do"><span class="glyphicon glyphicon-log-out"></span>로그아웃</a></li>
 	      		  <c:if test="${!empty mvo}">
-				  	<c:if test="${mvo.memProfile eq '' }">
+				  	<c:if test="${empty mvo.memProfile}">
 				  		<li><img class="img-circle" src="${contextPath}/resources/images/aimyon.png" style="width: 50px; height: 50px;">${mvo.memName }님 방문을 환영합니다.</li>
 				  	</c:if>
-					<c:if test="${mvo.memProfile ne '' }">
+					<c:if test="${!empty mvo.memProfile}">
 				  		<li><img class="img-circle" src="${contextPath}/resources/upload/${mvo.memProfile}" style="width: 50px; height: 50px;">${mvo.memName }님 방문을 환영합니다.</li>
 				  	</c:if>
 				  </c:if>

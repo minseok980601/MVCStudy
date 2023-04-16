@@ -11,6 +11,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript">
+  
+  	var csrfHeaderName = "${_csrf.headerName}";
+  	var csrfTokenValue = "${_csrf.token}";
+  
   	$(document).ready(function() {
   		loadList();
   	});
@@ -98,6 +102,9 @@
 			url: "board/new" ,
 			type: "post" ,
 			data: fData ,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+				},
 			success: loadList ,
 			error: function () {
 				alert("error");
@@ -134,6 +141,9 @@
   				url: "board/count/"+idx,
   				type: "put",
   				dataType: "json",
+  				beforeSend: function(xhr){
+  					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+  					},
   				success: function (data) {
 					$("#cnt"+idx).text(data.count);
 				},
@@ -149,6 +159,9 @@
 			url: "board/"+idx,
 			type: "delete",
 			success: loadList,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+				},
 			error: function () {
 				alert("error");
 			}
@@ -176,6 +189,9 @@
 			type: "put",
 			contentType:'application/json;charset=utf-8',
 			data: JSON.stringify({"idx":idx, "title":title, "content":content}),
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+				},
 			success: loadList,
 			error: function () {
 				alert("error");

@@ -9,11 +9,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 // web.xml
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-	// RootConfig를 읽음
+	// RootConfig, SecurityConfig를 읽음
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[] { RootConfig.class };
+		return new Class[] { RootConfig.class, SecurityConfig.class };
 	}
 
 	// ServletConfig를 읽음

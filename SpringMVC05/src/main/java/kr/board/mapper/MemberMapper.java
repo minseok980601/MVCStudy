@@ -19,4 +19,5 @@ public interface MemberMapper {
 	public Member getMember(String memID);	// 회원ID 가져오기
 	public void memProfileUpdate(Member mvo);	// 이미지 업로드
 	public void authInsert(AuthVO saveVO);
+	public void authDelete(String memID);
 }

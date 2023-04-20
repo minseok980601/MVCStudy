@@ -34,14 +34,16 @@
 				#{memGender}, #{memEmail}, #{memProfile})
 	</insert>
 	
-	<select id="memLogin" parameterType="kr.board.entity.Member" resultType="kr.board.entity.Member">
+	<select id="memLogin" parameterType="kr.board.entity.Member" resultMap="memberMap">
 		select *
-		from mem_tbl
-		where memID = #{memID} and memPassword = #{memPassword}
+		from mem_stbl mem 
+		LEFT OUTER JOIN 
+		mem_auth auth on mem.memID = auth.memID
+		where mem.memID = #{memID}
 	</select>
 	
 	<update id="memUpdate" parameterType="kr.board.entity.Member">
-		update mem_tbl
+		update mem_stbl
 		set memPassword = #{memPassword}, memName = #{memName}, 
 			memAge = #{memAge}, memGender = #{memGender}, memEmail = #{memEmail}
 		where memID = #{memID}
@@ -50,12 +52,14 @@
 	<!--  수정(회원, 권한 join) -->
 	<select id="getMember" resultMap="memberMap">
 		select *
-		from mem_tbl mem LEFT OUTER JOIN mem_auth auth on mem.memID = auth.memID
+		from mem_stbl mem 
+		LEFT OUTER JOIN 
+		mem_auth auth on mem.memID = auth.memID
 		where mem.memID = #{memID}
 	</select>
 	
 	<update id="memProfileUpdate" parameterType="kr.board.entity.Member">
-		update mem_tbl
+		update mem_stbl
 		set memProfile = #{memProfile}
 		where memID = #{memID}
 	</update>
@@ -64,4 +68,10 @@
 		insert into mem_auth(memID, auth)
 		values(#{memID}, #{auth})
 	</insert>
+	
+	<delete id="authDelete">
+		delete
+		from mem_auth
+		where memID = #{memID}
+	</delete>
 </mapper>

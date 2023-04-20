@@ -134,7 +134,8 @@ public class MemberController {
 			return "redirect:/memLoginForm.do";
 		}
 		Member mvo = memberMapper.memLogin(m);
-		if(mvo != null) {	// 로그인 성공
+		// 추가 : 비밀번호 일치여부 체크
+		if(mvo != null && pwEncoder.matches(m.getMemPassword(), mvo.getMemPassword())) {	// 로그인 성공
 			rttr.addFlashAttribute("msgType", "성공 메세지");
 			rttr.addFlashAttribute("msg", "로그인에 성공했습니다.");
 			session.setAttribute("mvo", mvo);
@@ -162,7 +163,7 @@ public class MemberController {
 				memPassword1 == null || memPassword1.equals("") ||
 				memPassword2 == null || memPassword2.equals("") ||
 				m.getMemName() == null || m.getMemName().equals("") ||
-				m.getMemAge() == 0 || m.getMemName().equals("") ||
+				m.getMemAge() == 0 || m.getAuthList().equals("") ||
 				m.getMemGender() == null || m.getMemGender().equals("") ||
 				m.getMemEmail() == null || m.getMemEmail().equals("")) {
 				// 누락메시지를 가지고 가기? => 객체바인딩(Model, HttpServletRequest, HttpSession)
@@ -180,8 +181,23 @@ public class MemberController {
 			}
 			
 			// 회원을  수정하기
+			// 추가 : 비밀번호암호화
+			String encyptPw = pwEncoder.encode(m.getMemPassword());
+			m.setMemPassword(encyptPw);
 			int result = memberMapper.memUpdate(m);
 			if (result == 1) {	// 수정 성공 메시지
+				// 기존권한을 삭제하고
+				memberMapper.authDelete(m.getMemID());
+				List<AuthVO> list = m.getAuthList();
+				// 새로운 권한을 추가하기
+				for(AuthVO authVO : list) {
+					if(authVO.getAuth() != null) {
+						AuthVO saveVO = new AuthVO();
+						saveVO.setMemID(m.getMemID());
+						saveVO.setAuth(authVO.getAuth());
+						memberMapper.authInsert(saveVO);
+					}
+				}
 				rttr.addFlashAttribute("msgType", "성공 메시지");
 				rttr.addFlashAttribute("msg", "회원정보 수정에 성공했습니다.");
 				// 회원수정이 성공하면 => 로그인처리하기

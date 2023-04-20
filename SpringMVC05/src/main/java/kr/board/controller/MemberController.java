@@ -188,8 +188,8 @@ public class MemberController {
 			if (result == 1) {	// 수정 성공 메시지
 				// 기존권한을 삭제하고
 				memberMapper.authDelete(m.getMemID());
-				List<AuthVO> list = m.getAuthList();
 				// 새로운 권한을 추가하기
+				List<AuthVO> list = m.getAuthList();
 				for(AuthVO authVO : list) {
 					if(authVO.getAuth() != null) {
 						AuthVO saveVO = new AuthVO();

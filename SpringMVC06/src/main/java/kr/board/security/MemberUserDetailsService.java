@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import kr.board.entity.Member;
+import kr.board.entity.MemberUser;
 import kr.board.mapper.MemberMapper;
+import lombok.Data;
 
 public class MemberUserDetailsService implements UserDetailsService{
 
@@ -20,7 +22,7 @@ public class MemberUserDetailsService implements UserDetailsService{
 		Member mvo = memberMapper.memLogin(username);
 		// --> UserDetails --> implements ---> User -> extends ---> MemberUser 
 		if (mvo != null) {
-			// return mvo;		// new MemberUser(mvo);		// Member, AuthVO
+			return new MemberUser(mvo);		// new MemberUser(mvo);		// Member, AuthVO
 		} else {
 			throw new  UsernameNotFoundException("user with username" + username + "does not exist.");
 		}

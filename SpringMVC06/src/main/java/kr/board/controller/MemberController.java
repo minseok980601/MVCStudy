@@ -112,12 +112,12 @@ public class MemberController {
 	}
 	
 	// 로그아웃 처리
-	@RequestMapping("/memLogout.do")
-	public String memLogout(HttpSession session) {
-		session.invalidate();
-		
-		return "redirect:/";
-	}
+	/*
+	 * @RequestMapping("/memLogout.do") public String memLogout(HttpSession session)
+	 * { session.invalidate();
+	 * 
+	 * return "redirect:/"; }
+	 */
 	
 	// 로그인 화면으로 이동 (스프링 시큐리티)
 	@RequestMapping("/memLoginForm.do")
@@ -126,27 +126,20 @@ public class MemberController {
 	}
 	
 	// 로그인 기능 구현
-	@RequestMapping("/memLogin.do")
-	public String memLogin(Member m, RedirectAttributes rttr, HttpSession session ) {
-		if (m.getMemID()==null || m.getMemID().equals("") || 
-			m.getMemPassword()==null || m.getMemPassword().equals("")) {
-			rttr.addFlashAttribute("msgType", "실패 메세지");
-			rttr.addFlashAttribute("msgType", "모든 내용을 입력해주세요.");
-			return "redirect:/memLoginForm.do";
-		}
-		Member mvo = memberMapper.memLogin(m);
-		// 추가 : 비밀번호 일치여부 체크
-		if(mvo != null && pwEncoder.matches(m.getMemPassword(), mvo.getMemPassword())) {	// 로그인 성공
-			rttr.addFlashAttribute("msgType", "성공 메세지");
-			rttr.addFlashAttribute("msg", "로그인에 성공했습니다.");
-			session.setAttribute("mvo", mvo);
-			return "redirect:/";
-		} else {	// 로그인 실패
-			rttr.addFlashAttribute("msgType", "실패 메세지");
-			rttr.addFlashAttribute("msg", "다시 로그인 해주세요.");
-			return "redirect:/memLoginForm.do";
-		}
-	}
+	/*
+	 * @RequestMapping("/memLogin.do") public String memLogin(Member m,
+	 * RedirectAttributes rttr, HttpSession session ) { if (m.getMemID()==null ||
+	 * m.getMemID().equals("") || m.getMemPassword()==null ||
+	 * m.getMemPassword().equals("")) { rttr.addFlashAttribute("msgType", "실패 메세지");
+	 * rttr.addFlashAttribute("msgType", "모든 내용을 입력해주세요."); return
+	 * "redirect:/memLoginForm.do"; } Member mvo = memberMapper.memLogin(m); // 추가 :
+	 * 비밀번호 일치여부 체크 if(mvo != null && pwEncoder.matches(m.getMemPassword(),
+	 * mvo.getMemPassword())) { // 로그인 성공 rttr.addFlashAttribute("msgType",
+	 * "성공 메세지"); rttr.addFlashAttribute("msg", "로그인에 성공했습니다.");
+	 * session.setAttribute("mvo", mvo); return "redirect:/"; } else { // 로그인 실패
+	 * rttr.addFlashAttribute("msgType", "실패 메세지"); rttr.addFlashAttribute("msg",
+	 * "다시 로그인 해주세요."); return "redirect:/memLoginForm.do"; } }
+	 */
 	
 	// 회원 정보 수정
 	@RequestMapping("/memUpdateForm.do")
